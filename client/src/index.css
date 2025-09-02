@@ -1,0 +1,288 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: hsl(39, 47%, 96%);
+  --foreground: hsl(0, 0%, 10%);
+  --muted: hsl(39, 10%, 95%);
+  --muted-foreground: hsl(0, 0%, 29%);
+  --popover: hsl(0, 0%, 100%);
+  --popover-foreground: hsl(0, 0%, 10%);
+  --card: hsl(0, 0%, 100%);
+  --card-foreground: hsl(0, 0%, 10%);
+  --border: hsl(39, 10%, 90%);
+  --input: hsl(39, 10%, 90%);
+  --primary: hsl(220, 100%, 20%);
+  --primary-foreground: hsl(0, 0%, 100%);
+  --secondary: hsl(39, 10%, 95%);
+  --secondary-foreground: hsl(0, 0%, 15%);
+  --accent: hsl(39, 10%, 95%);
+  --accent-foreground: hsl(0, 0%, 15%);
+  --destructive: hsl(0, 84%, 60%);
+  --destructive-foreground: hsl(0, 0%, 98%);
+  --ring: hsl(0, 0%, 10%);
+  --radius: 0.5rem;
+
+  /* Level Up specific colors */
+  --bg-primary: hsl(39, 47%, 96%);
+  --text-primary: hsl(0, 0%, 10%);
+  --accent-yellow: hsl(50, 100%, 52%);
+  --accent-blue: hsl(220, 100%, 20%);
+  --text-secondary: hsl(0, 0%, 29%);
+  --white: hsl(0, 0%, 100%);
+}
+
+.dark {
+  --background: hsl(240, 10%, 4%);
+  --foreground: hsl(0, 0%, 98%);
+  --muted: hsl(240, 4%, 16%);
+  --muted-foreground: hsl(240, 5%, 65%);
+  --popover: hsl(240, 10%, 4%);
+  --popover-foreground: hsl(0, 0%, 98%);
+  --card: hsl(240, 10%, 4%);
+  --card-foreground: hsl(0, 0%, 98%);
+  --border: hsl(240, 4%, 16%);
+  --input: hsl(240, 4%, 16%);
+  --primary: hsl(50, 100%, 52%);
+  --primary-foreground: hsl(0, 0%, 10%);
+  --secondary: hsl(240, 4%, 16%);
+  --secondary-foreground: hsl(0, 0%, 98%);
+  --accent: hsl(240, 4%, 16%);
+  --accent-foreground: hsl(0, 0%, 98%);
+  --destructive: hsl(0, 63%, 31%);
+  --destructive-foreground: hsl(0, 0%, 98%);
+  --ring: hsl(240, 5%, 84%);
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply font-sans antialiased bg-background text-foreground;
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+}
+
+/* Typography */
+.hero-headline {
+  font-size: clamp(36px, 6vw, 48px);
+  font-weight: 900;
+  letter-spacing: -1px;
+  line-height: 1.1;
+}
+
+.section-header {
+  font-size: clamp(24px, 4vw, 32px);
+  font-weight: 700;
+  letter-spacing: -0.5px;
+  line-height: 1.2;
+  margin-bottom: 32px;
+}
+
+.category-header {
+  font-size: clamp(28px, 4vw, 36px);
+  font-weight: 800;
+  letter-spacing: -0.5px;
+  line-height: 1.2;
+  margin-bottom: 16px;
+}
+
+.body-text {
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 1.7;
+  color: var(--text-secondary);
+}
+
+/* Chat styling */
+.chat-messages {
+  scrollbar-width: thin;
+  scrollbar-color: hsl(0, 0%, 90%) transparent;
+}
+
+.chat-messages::-webkit-scrollbar {
+  width: 6px;
+}
+
+.chat-messages::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.chat-messages::-webkit-scrollbar-thumb {
+  background-color: hsl(0, 0%, 90%);
+  border-radius: 3px;
+}
+
+/* Animations */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pulse {
+  0%, 100% { 
+    transform: scale(1); 
+    opacity: 1; 
+  }
+  50% { 
+    transform: scale(1.1); 
+    opacity: 0.8; 
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-18px);
+  }
+}
+
+.animate-fade-in {
+  animation: fadeInUp 0.5s ease-out;
+}
+
+.animate-pulse-custom {
+  animation: pulse 2s infinite;
+}
+
+.animate-float {
+  animation: float 3.5s ease-in-out infinite;
+}
+
+/* Navigation styles */
+.nav-link {
+  transition: all 0.3s ease;
+}
+
+.nav-link:hover {
+  transform: translateY(-1px);
+}
+
+.nav-link.active {
+  background-color: var(--accent-yellow);
+  color: var(--text-primary);
+  font-weight: 600;
+}
+
+.nav-link.ai-coach.active {
+  background-color: var(--accent-yellow);
+  color: var(--text-primary);
+  font-weight: 600;
+}
+
+.nav-link.ai-coach:not(.active) {
+  background-color: transparent;
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+.nav-link.ai-coach:hover {
+  background-color: var(--accent-blue);
+  color: var(--white);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Progress dots */
+.progress-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: hsl(0, 0%, 90%);
+  transition: all 0.3s ease;
+}
+
+.progress-dot.completed {
+  background-color: var(--accent-yellow);
+}
+
+.progress-dot.current {
+  background-color: var(--text-primary);
+  transform: scale(1.2);
+}
+
+/* Chapter card styles */
+.chapter-card {
+  background-color: var(--white);
+  border-radius: 16px;
+  transition: all 0.4s ease;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+  cursor: pointer;
+  text-decoration: none;
+  color: inherit;
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  position: relative;
+  overflow: hidden;
+}
+
+.chapter-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--accent-yellow), var(--accent-blue));
+  transform: scaleX(0);
+  transition: transform 0.4s ease;
+}
+
+.chapter-card:hover::before {
+  transform: scaleX(1);
+}
+
+.chapter-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.12);
+}
+
+.chapter-card.completed {
+  background: linear-gradient(135deg, var(--white) 0%, hsl(120, 30%, 98%) 100%);
+}
+
+.chapter-card.completed::before {
+  background: var(--accent-yellow);
+  transform: scaleX(1);
+}
+
+/* Status indicators */
+.status-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background-color: hsl(0, 0%, 90%);
+}
+
+.status-dot.completed {
+  background-color: var(--accent-yellow);
+}
+
+.status-dot.current {
+  background-color: var(--text-primary);
+  animation: pulse 2s infinite;
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+  .mobile-nav-hidden {
+    display: block;
+  }
+  
+  .desktop-nav-item {
+    display: none;
+  }
+}
