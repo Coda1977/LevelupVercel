@@ -24,21 +24,31 @@ export function AuthModal({ isOpen, onClose, mode = 'signin' }: AuthModalProps) 
   const handleGoogleSignIn = async () => {
     setLoading(true)
     try {
+      // Use the production URL for Google OAuth redirect
+      const redirectUrl = window.location.hostname === 'localhost' 
+        ? 'http://localhost:3000/dashboard'
+        : 'https://levelupmanager.vercel.app/dashboard'
+      
       const { error } = await supabase.auth.signInWithOAuth({
         provider: 'google',
         options: {
-          redirectTo: `${window.location.origin}/dashboard`
+          redirectTo: redirectUrl,
+          queryParams: {
+            access_type: 'offline',
+            prompt: 'consent',
+          }
         }
       })
       
       if (error) throw error
+      
+      // The OAuth flow will redirect the user, so we don't need to close the modal
     } catch (error: any) {
       toast({
         title: "Error",
         description: error.message || "Failed to sign in with Google.",
         variant: "destructive",
       })
-    } finally {
       setLoading(false)
     }
   }

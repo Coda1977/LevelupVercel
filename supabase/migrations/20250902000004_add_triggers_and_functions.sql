@@ -14,8 +14,17 @@ BEGIN
   VALUES (
     new.id, 
     new.email,
-    COALESCE(new.raw_user_meta_data->>'first_name', ''),
-    COALESCE(new.raw_user_meta_data->>'last_name', ''),
+    COALESCE(
+      new.raw_user_meta_data->>'first_name',
+      new.raw_user_meta_data->>'given_name',
+      new.raw_user_meta_data->>'full_name',
+      ''
+    ),
+    COALESCE(
+      new.raw_user_meta_data->>'last_name',
+      new.raw_user_meta_data->>'family_name',
+      ''
+    ),
     CASE WHEN new.email = 'tinymanagerai@gmail.com' THEN true ELSE false END,
     NOW(),
     NOW()

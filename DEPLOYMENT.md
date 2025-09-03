@@ -23,8 +23,31 @@ DATABASE_URL=postgresql://...
 
 #### Authentication Providers
 Go to: https://supabase.com/dashboard/project/tybmpcvwjugzoyworgfx/auth/providers
+
+##### Email Provider
 - ✅ Enable Email Provider
-- ✅ Enable Google OAuth (optional)
+- Configure email templates as needed
+
+##### Google OAuth Provider
+- ✅ Enable Google OAuth
+- **Client ID**: Get from Google Cloud Console
+- **Client Secret**: Get from Google Cloud Console
+
+**Setting up Google OAuth:**
+1. Go to [Google Cloud Console](https://console.cloud.google.com/)
+2. Create a new project or select existing
+3. Enable Google+ API
+4. Go to Credentials → Create Credentials → OAuth 2.0 Client ID
+5. Application type: Web application
+6. Authorized JavaScript origins:
+   - `https://tybmpcvwjugzoyworgfx.supabase.co`
+   - `https://levelupmanager.vercel.app`
+   - `http://localhost:3000` (for development)
+7. Authorized redirect URIs:
+   - `https://tybmpcvwjugzoyworgfx.supabase.co/auth/v1/callback`
+   - `https://levelupmanager.vercel.app/dashboard`
+   - `http://localhost:3000/dashboard` (for development)
+8. Copy Client ID and Client Secret to Supabase
 
 #### Redirect URLs
 Go to: https://supabase.com/dashboard/project/tybmpcvwjugzoyworgfx/auth/url-configuration
@@ -49,6 +72,19 @@ node setup.js
 
 ### 5. Admin Access
 The user `tinymanagerai@gmail.com` is automatically granted admin access on sign-up.
+
+#### How Admin Detection Works:
+1. **Email Authentication**: When tinymanagerai@gmail.com signs up via email
+2. **Google OAuth**: When a Google account with tinymanagerai@gmail.com signs in
+3. **Database Trigger**: Automatically sets `is_admin = true` in the users table
+4. **Runtime Check**: The `useIsAdmin` hook always returns true for this email
+
+#### Authentication Flow:
+1. User clicks "Sign in with Google" or enters email/password
+2. Supabase handles OAuth flow or password verification
+3. On successful auth, database trigger creates/updates user profile
+4. User is redirected to `/dashboard`
+5. Admin users see additional admin menu items
 
 ## 🔄 Deployment Commands
 
@@ -92,9 +128,27 @@ npm run build
 ## 🔧 Troubleshooting
 
 ### Auth Issues
+
+#### Email Authentication
 1. Check Supabase redirect URLs include `https://levelupmanager.vercel.app/**`
 2. Verify environment variables in Vercel
 3. Ensure Email provider is enabled in Supabase
+
+#### Google OAuth Issues
+1. **Error: "Redirect URI mismatch"**
+   - Verify redirect URIs in Google Cloud Console match exactly
+   - Include both production and localhost URLs
+   - Check for trailing slashes
+
+2. **Error: "User profile not created"**
+   - Check database triggers are active
+   - Verify `handle_new_user` function exists
+   - Run migrations: `npx supabase db push`
+
+3. **Admin not detected for tinymanagerai@gmail.com**
+   - Ensure Google account uses exact email
+   - Check `users` table has `is_admin = true`
+   - Verify `useIsAdmin` hook is checking correctly
 
 ### Database Issues
 1. Run migrations: `npx supabase db push`
