@@ -131,7 +131,7 @@ const setup = {
     
     console.log('2. Configure Redirect URLs:');
     console.log('   https://supabase.com/dashboard/project/tybmpcvwjugzoyworgfx/auth/url-configuration');
-    console.log('   - Add: https://levelup-vercel.vercel.app/**\n');
+    console.log('   - Add: https://levelupmanager.vercel.app/**\n');
     
     console.log('3. Set Environment Variables in Vercel:');
     console.log('   - VITE_SUPABASE_URL');
@@ -142,7 +142,7 @@ const setup = {
     console.log('   npx supabase db push\n');
     
     console.log('='.repeat(60));
-    console.log('🚀 Your app: https://levelup-vercel.vercel.app');
+    console.log('🚀 Your app: https://levelupmanager.vercel.app');
     console.log('='.repeat(60) + '\n');
   },
 

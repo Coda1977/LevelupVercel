@@ -25,9 +25,9 @@
 
 ## Project URLs
 
-- **Production**: https://levelup-vercel.vercel.app
+- **Production**: https://levelupmanager.vercel.app
 - **Supabase Dashboard**: https://supabase.com/dashboard/project/tybmpcvwjugzoyworgfx
-- **GitHub**: https://github.com/Coda1977/LevelUp2.git
+- **GitHub**: https://github.com/Coda1977/LevelupVercel.git
 
 ## Build, Dev, and Test Commands
 
@@ -99,7 +99,7 @@ DATABASE_URL=postgresql://...
 OPENAI_API_KEY=sk-...
 
 # Vercel
-VERCEL_URL=https://levelup-vercel.vercel.app
+VERCEL_URL=https://levelupmanager.vercel.app
 ```
 
 ### Admin Access

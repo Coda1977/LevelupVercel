@@ -43,7 +43,7 @@ export const config = {
   
   // App URLs
   urls: {
-    production: 'https://levelup-vercel.vercel.app',
+    production: 'https://levelupmanager.vercel.app',
     development: 'http://localhost:3000',
   },
   
