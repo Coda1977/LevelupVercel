@@ -24,10 +24,10 @@ export function AuthModal({ isOpen, onClose, mode = 'signin' }: AuthModalProps) 
   const handleGoogleSignIn = async () => {
     setLoading(true)
     try {
-      // Use the production URL for Google OAuth redirect
+      // Use the base URL for Google OAuth redirect - Supabase will handle the routing
       const redirectUrl = window.location.hostname === 'localhost' 
-        ? 'http://localhost:3000/dashboard'
-        : 'https://levelupmanager.vercel.app/dashboard'
+        ? 'http://localhost:3000'
+        : 'https://levelupmanager.vercel.app'
       
       const { error } = await supabase.auth.signInWithOAuth({
         provider: 'google',
