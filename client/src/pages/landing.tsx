@@ -1,6 +1,5 @@
 import { Link } from "wouter";
 import { Button } from "@/components/ui/button";
-import heroImage from "@assets/Hand-drawn sketch in electric vivid colors, rough textured pencil strokes. White background. Stacked, three-dimensional prism with subtle grayscale planes and a faint teal edge_1752939852785.jpg";
 import { useEffect, useRef, useState } from "react";
 import { AuthModal } from "@/components/AuthModal";
 
@@ -61,11 +60,27 @@ export default function Landing() {
             </div>
             <div className="flex-1 flex justify-center lg:justify-end">
               <div className="bg-[var(--white)] p-12 rounded-2xl hover:-translate-y-2 hover:shadow-xl transition-all duration-300">
-                <img
-                  src={heroImage}
-                  alt="Hand-drawn cube illustration representing structured learning"
-                  className="w-48 h-48 md:w-64 md:h-64 object-contain"
-                />
+                <svg 
+                  className="w-48 h-48 md:w-64 md:h-64" 
+                  viewBox="0 0 200 200" 
+                  fill="none"
+                  alt="Structured learning illustration"
+                >
+                  {/* Simple 3D cube illustration */}
+                  <g transform="translate(50, 30)">
+                    {/* Back face */}
+                    <path d="M20 40 L80 40 L100 20 L40 20 Z" fill="#E5E7EB" stroke="#9CA3AF" strokeWidth="2"/>
+                    {/* Left face */}
+                    <path d="M20 40 L40 20 L40 80 L20 100 Z" fill="#D1D5DB" stroke="#9CA3AF" strokeWidth="2"/>
+                    {/* Right face */}
+                    <path d="M80 40 L100 20 L100 80 L80 100 Z" fill="#F3F4F6" stroke="#9CA3AF" strokeWidth="2"/>
+                    {/* Top face */}
+                    <path d="M20 40 L80 40 L80 100 L20 100 Z" fill="#FFFFFF" stroke="#9CA3AF" strokeWidth="2"/>
+                  </g>
+                  {/* Accent elements */}
+                  <circle cx="160" cy="50" r="8" fill="var(--accent-yellow)" opacity="0.7"/>
+                  <rect x="30" y="150" width="12" height="12" fill="var(--accent-blue)" opacity="0.6" rx="2"/>
+                </svg>
               </div>
             </div>
           </div>
