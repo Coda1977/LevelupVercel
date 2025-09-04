@@ -15,7 +15,7 @@ export function registerChapterRoutes(app: Express) {
       const { categoryId } = req.query;
       const chapters = categoryId 
         ? await storage.getChaptersByCategory(parseInt(categoryId as string))
-        : await storage.getChapters();
+        : await storage.getAllChapters();
       res.json(chapters);
     } catch (error) {
       console.error("Error fetching chapters:", error);
@@ -129,7 +129,7 @@ export function registerChapterRoutes(app: Express) {
   app.post('/api/chapters/:id/generate-audio', isAuthenticated, async (req, res) => {
     try {
       const { id } = req.params;
-      const chapter = await storage.getChapter(parseInt(id));
+      const chapter = await storage.getChapterById(parseInt(id));
       
       if (!chapter) {
         return res.status(404).json({ message: "Chapter not found" });
@@ -151,7 +151,7 @@ export function registerChapterRoutes(app: Express) {
   app.delete('/api/chapters/:id/audio', isAuthenticated, async (req, res) => {
     try {
       const { id } = req.params;
-      const chapter = await storage.getChapter(parseInt(id));
+      const chapter = await storage.getChapterById(parseInt(id));
       
       if (!chapter || !chapter.audioUrl) {
         return res.status(404).json({ message: "Audio not found" });
@@ -197,7 +197,7 @@ export function registerChapterRoutes(app: Express) {
         return res.status(404).json({ message: "Shared chapter not found" });
       }
       
-      const chapter = await storage.getChapter(sharedChapter.chapterId);
+      const chapter = await storage.getChapterById(sharedChapter.chapterId);
       res.json(chapter);
     } catch (error) {
       console.error("Error fetching shared chapter:", error);

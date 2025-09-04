@@ -1,6 +1,7 @@
 import { Link, useLocation } from "wouter";
 import { useState } from "react";
 import { useAuth } from "@/hooks/useAuth";
+import { useIsAdmin } from "@/hooks/useIsAdmin";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Menu } from "lucide-react";
@@ -10,6 +11,7 @@ import { AuthModal } from "@/components/AuthModal";
 export function Navigation() {
   const [location] = useLocation();
   const { user, isAuthenticated } = useAuth();
+  const { isAdmin } = useIsAdmin();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [showAuthModal, setShowAuthModal] = useState(false);
 
@@ -19,13 +21,18 @@ export function Navigation() {
     return false;
   };
 
-  const navLinks = [
+  const baseNavLinks = [
     { path: '/learn', label: 'Learn' },
     { path: '/chat', label: 'AI Coach', className: 'ai-coach' },
-    { path: '/analytics', label: 'Analytics' },
+    { path: '/analytics', label: 'Analytics' }
+  ];
+
+  const adminNavLinks = [
     { path: '/team', label: 'Team' },
     { path: '/admin', label: 'Admin' }
   ];
+
+  const navLinks = isAdmin ? [...baseNavLinks, ...adminNavLinks] : baseNavLinks;
 
   const handleSignOut = async () => {
     await supabase.auth.signOut();
